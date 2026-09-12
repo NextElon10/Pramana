@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/pramana-mark.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#132038" />
+
+    <title>PRAMANA — MPLADS Statistical Integrity &amp; Transparency Explorer</title>
+    <meta name="description" content="PRAMANA is a statistical transparency and analytical prototype for exploring MPLADS allocation data. It is not the official e-SAKSHI portal." />
+    <meta property="og:title" content="PRAMANA — MPLADS Statistical Integrity &amp; Transparency Explorer" />
+    <meta property="og:description" content="Explore MPLADS members, states and allocated limits through a transparent statistical interface." />
+    <meta property="og:type" content="website" />
+
+    <!-- Plus Jakarta Sans carries headings, Inter the interface text. Indic and Nastaliq
+         faces load on demand when a language is selected (see src/i18n/index.tsx). If the
+         network is unavailable the CSS stack falls back to the system UI font and the
+         interface still renders. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Loaded non-blocking: if the network is slow or unavailable the page still
+         paints immediately in the system fallback stack. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" media="print" onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

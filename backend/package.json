@@ -1,0 +1,35 @@
+{
+  "name": "pramana-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PRAMANA backend - statistical transparency & anomaly screening API (prototype, not the official e-SAKSHI portal).",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "seed": "node src/seed/seed.js"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.2",
+    "csv-stringify": "^6.8.3",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.3.0",
+    "node-sqlite3-wasm": "^0.8.60",
+    "pdfkit": "^0.20.2"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

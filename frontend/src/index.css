@@ -1,0 +1,407 @@
+@import "tailwindcss";
+
+/* Tailwind v4 loads the design tokens (colours, fonts, shadows) from the JS config. */
+@config "../tailwind.config.js";
+
+@layer base {
+  :root {
+    --tricolour: linear-gradient(
+      to right,
+      #ff9933 0%, #ff9933 33.33%,
+      #ffffff 33.33%, #ffffff 66.66%,
+      #128807 66.66%, #128807 100%
+    );
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-sans font-extrabold tracking-tight text-slate-900;
+  }
+  h1 {
+    @apply text-4xl sm:text-5xl;
+  }
+
+  /* Controls inherit the interface face rather than the browser's form default. */
+  button, input, select, textarea, label {
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #365182;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: #c7d3e6;
+  }
+}
+
+@layer components {
+  .tricolour-rule {
+    height: 3px;
+    background: var(--tricolour);
+  }
+
+  .shell {
+    @apply mx-auto w-full px-4 sm:px-6;
+    max-width: 1280px;
+  }
+
+  /* ---------- Buttons ----------
+     Tailwind v4 only lets @apply reference real utilities, never another custom
+     class, so the shared base is applied to the whole button family at once. */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent,
+  .btn-ghost,
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded font-medium transition-colors;
+    @apply px-4 py-2 text-sm;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    @apply bg-navy-800 text-white hover:bg-navy-700 active:bg-navy-900;
+  }
+  .btn-secondary {
+    @apply bg-white text-navy-800 border-line-strong hover:bg-navy-50 hover:border-navy-300;
+  }
+  .btn-accent {
+    @apply bg-saffron-500 text-navy-950 hover:bg-saffron-400 font-semibold;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-navy-700 hover:bg-navy-50;
+  }
+  .btn-danger {
+    @apply bg-white text-red-700 border-red-200 hover:bg-red-50;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .btn:disabled,
+  .btn-primary:disabled,
+  .btn-secondary:disabled,
+  .btn-accent:disabled,
+  .btn-ghost:disabled,
+  .btn-danger:disabled {
+    @apply opacity-45 cursor-not-allowed;
+  }
+
+  /* ---------- Form controls ---------- */
+  .field-label {
+    @apply block text-2xs font-medium uppercase tracking-wide text-ink-muted mb-1;
+  }
+  .input,
+  .select,
+  .textarea {
+    @apply w-full rounded border border-line-strong bg-white px-3 py-2 text-sm text-ink;
+    @apply placeholder:text-ink-faint transition-colors;
+  }
+  .input:hover, .select:hover, .textarea:hover {
+    @apply border-navy-300;
+  }
+  .input:focus, .select:focus, .textarea:focus {
+    @apply border-navy-600 outline-none ring-2 ring-navy-600/15;
+  }
+  .select {
+    @apply pr-8 appearance-none bg-no-repeat;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%235b6675'%3E%3Cpath d='M4.5 6.5L8 10l3.5-3.5z'/%3E%3C/svg%3E");
+    background-position: right 8px center;
+    background-size: 16px;
+  }
+
+  /* ---------- Surfaces ---------- */
+  .card {
+    @apply bg-white border border-line rounded-md shadow-card;
+  }
+  .card-head {
+    @apply flex items-start justify-between gap-3 px-5 py-3.5 border-b border-line;
+  }
+  .card-title {
+    @apply text-sm font-semibold text-navy-900;
+  }
+  .card-sub {
+    @apply text-2xs text-ink-muted mt-0.5;
+  }
+  .card-body {
+    @apply p-5;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap {
+    @apply overflow-x-auto rounded-md border border-line bg-white shadow-card;
+  }
+  table.data-table {
+    @apply w-full border-collapse text-[13px];
+  }
+  table.data-table thead th {
+    @apply sticky top-0 z-10 bg-navy-50 text-navy-900 text-left font-semibold;
+    @apply px-3 py-2.5 whitespace-nowrap border-b border-line-strong text-2xs uppercase tracking-wide;
+  }
+  table.data-table tbody td {
+    @apply px-3 py-2.5 border-b border-line align-middle;
+  }
+  table.data-table tbody tr:nth-child(even) {
+    @apply bg-surface-raised;
+  }
+  table.data-table tbody tr:hover {
+    @apply bg-navy-50/70;
+  }
+  table.data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  .row-clickable {
+    @apply cursor-pointer;
+  }
+  .num {
+    @apply text-right tabular-nums whitespace-nowrap;
+  }
+
+  /* ---------- Status chips ---------- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded border px-2 py-0.5 text-2xs font-medium whitespace-nowrap;
+  }
+  .chip-neutral { @apply bg-navy-50 text-navy-700 border-navy-200; }
+  .chip-good    { @apply bg-emerald-50 text-emerald-800 border-emerald-200; }
+  .chip-warn    { @apply bg-amber-50 text-amber-800 border-amber-300; }
+  .chip-alert   { @apply bg-orange-50 text-orange-800 border-orange-300; }
+  .chip-high    { @apply bg-red-50 text-red-800 border-red-300; }
+  .chip-extreme { @apply bg-red-700 text-white border-red-800; }
+
+  .badge-demo {
+    @apply inline-flex items-center rounded border border-amber-300 bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800;
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav-tab {
+    @apply relative block px-4 py-3 text-sm font-medium text-white/80 transition-colors;
+    @apply hover:text-white hover:bg-white/10;
+  }
+  .nav-tab-active {
+    @apply text-white bg-white/10;
+  }
+  .nav-tab-active::after {
+    content: '';
+    @apply absolute left-0 right-0 bottom-0 h-[3px] bg-saffron-500;
+  }
+
+  .side-link {
+    @apply flex items-center gap-2.5 px-4 py-2 text-[13px] text-white/70 border-l-2 border-transparent transition-colors;
+    @apply hover:text-white hover:bg-white/5;
+  }
+  .side-link-active {
+    @apply text-white bg-white/10 border-saffron-500 font-medium;
+  }
+
+  .section-label {
+    @apply px-4 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/35;
+  }
+
+  /* ---------- Civic dashboard surface ----------
+     The public portal reads as a light dashboard: an off-white page with white,
+     softly elevated cards. Admin screens keep their existing denser treatment. */
+  .kpi-tile {
+    @apply rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition-shadow;
+  }
+  .kpi-tile:hover {
+    @apply shadow-md;
+  }
+  .kpi-label {
+    @apply text-[13px] font-medium leading-tight text-slate-600;
+  }
+  .kpi-value {
+    @apply mt-2 font-display text-2xl font-extrabold tracking-tight text-slate-900 tabular-nums;
+  }
+  /* Icon chip in the corner of a tile. Colour is decorative: every tile is also
+     labelled in words, so nothing here is the only carrier of meaning. */
+  .kpi-icon {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full;
+  }
+
+  /* Primary / secondary actions in the light dashboard idiom. */
+  .btn-slate {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors;
+    @apply hover:bg-slate-800 active:bg-slate-950;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors;
+    @apply hover:bg-slate-50 hover:border-slate-400;
+  }
+  /* Compact variant for header and toolbar placement. */
+  .btn-slate-sm {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors;
+    @apply hover:bg-slate-800 active:bg-slate-950;
+  }
+
+  /* Eyebrow pill above a page title. */
+  .eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 rounded-full bg-slate-200/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-800;
+  }
+
+  /* Header navigation for the public portal. */
+  .top-link {
+    @apply relative py-5 text-[15px] font-medium text-slate-600 transition-colors hover:text-slate-900;
+  }
+  .top-link-active {
+    @apply text-slate-900;
+  }
+  .top-link-active::after {
+    content: '';
+    @apply absolute inset-x-0 bottom-0 h-[3px] rounded-full bg-slate-900;
+  }
+
+  .search-field {
+    @apply w-full rounded-md border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm text-slate-900 transition-colors;
+    @apply placeholder:text-slate-400 hover:border-slate-400;
+  }
+  .search-field:focus {
+    @apply border-slate-500 outline-none ring-2 ring-slate-900/10;
+  }
+
+  /* Status pills. Each carries its own word, never colour alone. */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium;
+  }
+  .pill-good    { @apply border-emerald-200 bg-emerald-100 text-emerald-800; }
+  .pill-warn    { @apply border-amber-200 bg-amber-100 text-amber-800; }
+  .pill-alert   { @apply border-orange-200 bg-orange-100 text-orange-800; }
+  .pill-high    { @apply border-red-200 bg-red-100 text-red-800; }
+  .pill-neutral { @apply border-slate-200 bg-slate-100 text-slate-700; }
+
+  .notice-amber {
+    @apply flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-xs font-medium leading-normal text-amber-900 shadow-sm;
+  }
+
+  /* Standard content block for the public portal. */
+  .panel {
+    @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+  }
+
+  /* Slim progress track used for proportions. */
+  .track {
+    @apply h-2 w-full overflow-hidden rounded-full bg-slate-100;
+  }
+  .track-fill {
+    @apply h-full rounded-full bg-slate-800 transition-[width] duration-500;
+  }
+
+  /* ---------- Prototype watermark ----------
+     A repeating diagonal legend across analytical views, so a screenshot of a chart or
+     table cannot circulate without the words that qualify it. It is drawn by a fixed
+     pseudo-element beneath the content layer, never receives pointer events, and is not
+     selectable — so it cannot be copied into an export as if it were data. */
+  .proto-watermark {
+    position: relative;
+    isolation: isolate;
+  }
+  .proto-watermark > * {
+    position: relative;
+    z-index: 1;
+  }
+  .proto-watermark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.05;
+    background-repeat: repeat;
+    background-size: 460px 260px;
+    /* The legend is an SVG data URL so it scales crisply and needs no network. */
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='260'%3E%3Ctext x='0' y='150' transform='rotate(-24 0 150)' font-family='Inter,Segoe UI,Arial,sans-serif' font-size='19' font-weight='700' letter-spacing='1.5' fill='%230f172a'%3EPRAMANA STATISTICAL PROTOTYPE %E2%80%94 FOR DEMO USE ONLY%3C/text%3E%3C/svg%3E");
+  }
+  @media print {
+    .proto-watermark::before { opacity: 0.09; }
+  }
+
+  /* ---------- Scheme watermark ----------
+     The MPLADS scheme artwork sits behind the content of the "About the scheme"
+     section as a faint institutional watermark. It is painted by a pseudo-element
+     below the content layer, is never a hit target, and carries no information —
+     the section reads identically if the image fails to load. */
+  .scheme-watermark {
+    position: relative;
+    isolation: isolate;
+  }
+  .scheme-watermark > * {
+    position: relative;
+    z-index: 1;
+  }
+  .scheme-watermark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('/mplads-scheme.png');
+    background-repeat: no-repeat;
+    /* Sits to the right of the text column on wide screens, centred when narrow.
+       Sized to stay whole inside the panel rather than bleeding off its edges. */
+    background-position: right 32px center;
+    background-size: auto 82%;
+    opacity: 0.09;
+  }
+  @media (max-width: 767px) {
+    .scheme-watermark::before {
+      background-position: center 12%;
+      background-size: 78% auto;
+      /* Slightly fainter on small screens, where the text sits directly over it. */
+      opacity: 0.06;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .scheme-watermark::before { transition: opacity 200ms ease; }
+  }
+  @media print {
+    .scheme-watermark::before { opacity: 0.05; }
+  }
+
+  /* ---------- Misc ---------- */
+  .stat-value {
+    @apply text-2xl font-semibold tabular-nums text-navy-900 leading-none;
+  }
+  .stat-label {
+    @apply text-2xs font-medium uppercase tracking-wide text-ink-muted;
+  }
+  .prose-note {
+    @apply text-[13px] leading-relaxed text-ink-muted;
+  }
+  .link {
+    @apply text-navy-600 underline underline-offset-2 hover:text-navy-800;
+  }
+  .divider {
+    @apply border-t border-line;
+  }
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded focus:bg-navy-900 focus:px-4 focus:py-2 focus:text-white;
+  }
+}
+
+/* Leaflet's default tooltip is a small dark chip; the map's hover panel carries a
+   four-row figure table, so it is restyled to match the portal's cards. */
+.leaflet-tooltip {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.10);
+  padding: 0.625rem 0.75rem;
+  color: #0f172a;
+  font-family: inherit;
+  white-space: normal;
+}
+.leaflet-tooltip-top::before { border-top-color: #e2e8f0; }
+.leaflet-tooltip-bottom::before { border-bottom-color: #e2e8f0; }
+.leaflet-tooltip-left::before { border-left-color: #e2e8f0; }
+.leaflet-tooltip-right::before { border-right-color: #e2e8f0; }

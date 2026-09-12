@@ -1,0 +1,21 @@
+{
+  "name": "pramana",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PRAMANA — MPLADS Statistical Integrity & Transparency Explorer. A statistical transparency and analytical prototype; not the official e-SAKSHI portal.",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "setup": "npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently -n BACKEND,FRONTEND -c blue,green \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run build && npm --prefix backend start",
+    "seed": "npm --prefix backend run seed",
+    "reset": "node scripts/reset-db.js",
+    "typecheck": "npm --prefix frontend run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
